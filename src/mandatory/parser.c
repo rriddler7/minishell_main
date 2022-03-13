@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 20:21:05 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:55:54 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 02:08:10 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	add_command(t_input *input, char *str, U_INT j, U_INT *i)
 			tmp->words[k] = NULL;
 		}
 	}
-	find_star(tmp, input);
+	if (input->have_star == 1)
+		find_star(tmp, input);
 }
 
 t_status	parser(char *str_command, t_input *input, U_INT i, U_INT j)

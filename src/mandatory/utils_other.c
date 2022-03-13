@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_other.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
+/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:58:39 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 19:33:38 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 02:18:43 by marvin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ char	*modif_itoa(int n, t_input *input)
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		print_error(input, 12, "malloc", NULL);
-	str[len--] = 0;
+	str[len--] = '\0';
 	while ((num / 10) > 0)
 	{
 		str[len--] = (num % 10) + 48;

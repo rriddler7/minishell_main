@@ -43,7 +43,7 @@ U_INT	get_number_of_words(char *str, U_INT *i, t_input *input, U_INT counter)
 			go_through_redirect(str, i, '>', input);
 		else if (str[*i] == '*')
 		{
-			if (counter == 0)
+			if (counter == 0 || input->have_star == 0)
 				counter++;
 			else
 				counter += ft_lstsize(input->star);
