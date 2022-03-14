@@ -80,7 +80,7 @@ void	free_direct(t_input *input)
 	input->direct = NULL;
 }
 
-void	free_str_command(char *str_command, t_input *input, U_INT i)
+void	free_str_command(char *str_command, t_input *input, U_INT i) //free_fd_env
 {
 	free(str_command);
 	free_direct(input);

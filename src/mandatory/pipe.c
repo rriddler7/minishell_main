@@ -34,7 +34,7 @@ void	close_fd(t_input *input, int *fd_file, U_INT counter, U_INT i)
 	}
 }
 
-void	clean_path(char **path, U_INT i)
+void	clean_path(char **path, U_INT i) //free_path
 {
 	while (path != NULL && path[i] != NULL)
 	{

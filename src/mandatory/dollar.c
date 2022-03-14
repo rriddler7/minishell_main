@@ -60,7 +60,7 @@ char	*cut_envp(char *mid, U_INT *i, t_input *input)
 	{
 		if (ft_strcmp(copy, en->key) == 0)
 		{
-			free(copy);
+			free(copy); //free+
 			copy = modif_strdup(en->value, input);
 			return (copy);
 		}
@@ -107,13 +107,13 @@ char	*find_question(char *mid, U_INT *i, t_input *input, char c)
 	err = modif_itoa(input->num_error, input);
 	end = ft_strjoin(start, err, input);
 	*i = ft_strlen(end);
-	free(start);
+	free(start); //if_question
 	j++;
 	start = modif_substr(mid, j, ft_strlen(mid) - j, input);
-	free(mid);
+	free(mid); //if_question
 	mid = ft_strjoin(end, start, input);
-	free(start);
-	free(end);
-	free(err);
+	free(start); //if_question->ft_free
+	free(end); //if_question->ft_free
+	free(err); //if_question->ft_free
 	return (mid);
 }

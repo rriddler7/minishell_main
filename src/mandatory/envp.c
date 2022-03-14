@@ -93,7 +93,7 @@ static inline char	**make_env_array2(t_input *input, U_INT counter, U_INT i)
 			array = ft_strjoin_for_3(copy->key, "=", copy->value, input);
 		else
 			array = modif_strdup(copy->key, input);
-		arg[i] = array;
+		arg[i] = array; //free(array)
 		i++;
 		copy = copy->next;
 	}

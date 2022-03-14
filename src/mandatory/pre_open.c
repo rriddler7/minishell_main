@@ -69,12 +69,12 @@ void	try_open(t_input *input)
 	}
 	if (input->num_of_command > 1)
 		open_pipes(input);
-	if (input->num_of_command == 1 && input->command->build_number != 0)
+	if (input->num_of_command == 1 && (input->command->build_number && !input->command->direct_out))
 	{
-		fd = reverse_redir(input);
+		// fd = reverse_redir(input);
 		input->num_error = launcher(input, input->command);
-		reverse_redir2(input, fd);
+		// reverse_redir2(input, fd);
 	}
-	else if (input->num_of_command != 1 || input->command->words[0] != NULL)
+	else if (input->num_of_command != 1 || input->command->words[0] != NULL || (input->command->build_number && input->command->direct_out))
 		make_fork(input, input->command, 0);
 }

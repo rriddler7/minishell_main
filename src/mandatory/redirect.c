@@ -90,7 +90,7 @@ void	add_heredoc(t_input *input)
 			copy->stop_word = copy->name;
 			command = modif_itoa(copy->value, input);
 			copy->name = ft_strjoin("heredoc_", command, input);
-			free(command);
+			free(command); //ft_change_limiter
 		}
 		copy = copy->next;
 	}

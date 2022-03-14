@@ -35,7 +35,8 @@ char	*get_path2(char *bin, t_input *input, U_INT i)
 	}
 	if (res == NULL)
 		res = bin;
-	clean_path(path, 0);
+	clean_path(path, 0); //cmd_path
+	free(bin); //cmd_path+
 	return (res);
 }
 
