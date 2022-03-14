@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:20:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 23:53:27 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 00:20:13 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,14 +26,14 @@ static t_env	*ft_lstnew_env(t_env *env, t_input *input)
 	return (newnode);
 }
 
-static void	free_new(t_env *new)
+void	free_new(t_env **new)
 {
 	t_env	*copy;
 
-	while (new)
+	while (*new)
 	{
-		copy = new;
-		new = new->next;
+		copy = *new;
+		*new = (*new)->next;
 		free(copy->key);
 		free(copy->value);
 		free(copy);
@@ -51,9 +51,9 @@ static int	only_export(t_input *input)
 			printf("declare -x %s%s\"%s\"\n", copy->key, "=", copy->value);
 		else
 			printf("declare -x %s\n", copy->key);
-		copy = (copy)->next;
+		copy = copy->next;
 	}
-	free_new(copy);
+	free_new(&copy);
 	return (0);
 }
 
@@ -110,6 +110,8 @@ U_INT	launch_export(t_input *input, t_comm *command, U_INT i)
 		i++;
 	}
 	change_env(&input->envp, new, input);
+	free_new(&new);
+	// free_arg_env(input);
 	// my_free_t_comm(&command);
 	return (input->num_error);
 }

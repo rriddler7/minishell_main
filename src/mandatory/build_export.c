@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:20:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 22:48:15 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 00:19:58 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ t_env	*env_sort(t_env *list, t_env *new, t_input *input)
 			ft_lstadd_front(&list, new);
 		if (tmp->next != NULL && modif_strncmp(tmp->key, new->key, 1) > 0 && \
 			modif_strncmp(tmp->next->key, new->key, 1) < 0)
-			ft_lstadd_middle(new, tmp);
+			ft_lstadd_middle(&new, &tmp);
 		if (tmp->next == NULL && modif_strncmp(tmp->key, new->key, 1) > 0)
 			ft_lstadd_back(&list, new);
 		tmp = tmp->next;
 	}
+	free_new(&tmp);
 	return (list);
 }
 

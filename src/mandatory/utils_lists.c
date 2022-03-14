@@ -6,19 +6,19 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 20:26:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 19:33:34 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 00:16:55 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_lstadd_middle(t_env *new, t_env *tmp)
+void	ft_lstadd_middle(t_env **new, t_env **tmp)
 {
 	t_env	*next;
 
-	next = tmp->next;
-	tmp->next = new;
-	new->next = next;
+	next = (*tmp)->next;
+	(*tmp)->next = *new;
+	(*new)->next = next;
 }
 
 void	ft_lstadd_back(t_env **lst, t_env *new)

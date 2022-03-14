@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:08:31 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 22:48:49 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 00:20:21 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ char		*get_path_cd(t_input *input, t_comm *command, t_env *copy);
 t_env		*create_sort_env(t_env *old, t_input *input);
 t_env		*env_sort(t_env *list, t_env *new, t_input *input);
 t_env		*sort_export(t_input *input);
+void		free_new(t_env **new);
 
 /*----child_and_dups - работа с дочками, поиск пути---*/
 void		it_is_child(t_input *input, U_INT i, U_INT counter);
@@ -127,6 +128,7 @@ void		free_all(t_input *input);
 void		free_t_comm(t_input *input);
 void		free_direct(t_input *input);
 void		free_str_command(char *str_command, t_input *input, U_INT i);
+void		free_arg_env(t_input *input);
 
 /*----main----*/
 int			main(int argc, char **argv, char **envp);
@@ -222,7 +224,7 @@ void		iter_str(char *str, U_INT *i);
 void		my_gnl(char **new_line, t_input *input);
 
 /*----utils_list - ПРОДОЛЖЕНИЕ: полезные функции для строк---*/
-void		ft_lstadd_middle(t_env *new, t_env *tmp);
+void		ft_lstadd_middle(t_env **new, t_env **tmp);
 void		ft_lstadd_back(t_env **lst, t_env *new);
 void		ft_lstadd_front(t_env **lst, t_env *new);
 U_INT		ft_lstsize(t_env *lst);
