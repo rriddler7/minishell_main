@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:08:31 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 01:39:48 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/14 22:48:49 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,6 +207,7 @@ char		*modif_itoa(int n, t_input *input);
 t_status	ft_strcmp(char *s1, char *s2);
 long long	modif_atoi(char *s, int *flag, int i);
 int			ft_isalpha(int c);
+t_status	check_word(char *str);
 
 /*----utils_other2 - ПРОДОЛЖЕНИЕ: полезные функции для строк---*/
 int			ft_strncmp(const char *str1, const char *str2, size_t n);

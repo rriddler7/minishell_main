@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:20:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:21:51 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 22:48:15 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,4 @@ t_env	*sort_export(t_input *input)
 		old = old->next;
 	}
 	return (list);
-}
-
-int	ft_isalpha(int c)
-{
-	return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }

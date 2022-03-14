@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 20:44:38 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:53:54 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 22:27:27 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline t_status	check_quotes(t_input *input, char *str)
 			if (str[i] == '\'' || str[i] == '\"')
 			{
 				if (go_to_end_quote(str, &i, str[i], input) == fail)
-					return (fail);
+					return (print_token(input, "newline"));
 			}
 			else
 				i++;
@@ -77,14 +77,14 @@ static inline t_status	check_red(t_input *input, char *str_comman)
 
 t_status	finder(char *str_command, t_input *input, U_INT i)
 {
-	// // if (check_quotes(input, str_command) == fail)
+	if (check_quotes(input, str_command) == fail)
 	// if (check_quotes(input, str_command) == fail || \
 	// check_red(input, str_command) == fail)
-	// {
-	// 	input->num_error = 258;
-	// 	input->token = modif_strdup("newline", input);
-	// 	return (fail);
-	// }
+	{
+		input->num_error = 258;
+		// input->token = modif_strdup("newline", input);
+		return (fail);
+	}
 	// 	return (fail);
 	while (str_command[i] == ' ')
 		i++;

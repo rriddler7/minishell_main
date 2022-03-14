@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:20:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:24:04 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 23:19:50 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ U_INT	launch_export(t_input *input, t_comm *command, U_INT i)
 		return (only_export(input));
 	while (command->words[i])
 	{
-		if (command->words[i][0] == '_' || ft_isalpha(command->words[i][0]))
+		if (check_word(command->words[i]) == success)
 		{
 			tmp = create_new_list(command->words[i], input);
 			ft_lstadd_back(&new, tmp);
@@ -109,6 +109,7 @@ U_INT	launch_export(t_input *input, t_comm *command, U_INT i)
 		}
 		i++;
 	}
+	// free_t_comm(command);
 	change_env(input->envp, new, input);
 	return (input->num_error);
 }

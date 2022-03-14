@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quotes.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 18:42:03 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 02:04:56 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/14 22:27:30 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_status	go_to_end_quote(char *str, U_INT *i, char c, t_input *input)
 		else
 			m++;
 	}
-	print_token(input, "newline");
 	(*i)++;
 	return (fail);
 }

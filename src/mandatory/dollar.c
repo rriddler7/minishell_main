@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 19:21:26 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 19:39:45 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 22:31:25 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char	*cut_envp(char *mid, U_INT *i, t_input *input)
 		}
 		en = en->next;
 	}
+	free(copy);
 	return (modif_strdup("", input));
 }
 

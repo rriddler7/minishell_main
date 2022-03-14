@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 16:22:34 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 21:40:23 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 21:52:30 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	free_direct(t_input *input)
 	input->direct = NULL;
 }
 
-void	free_str_command(char *str_command, t_input *input, U_INT i) //free_fd_env
+void	free_str_command(char *str_command, t_input *input, U_INT i)
 {
 	free(str_command);
 	free_direct(input);
