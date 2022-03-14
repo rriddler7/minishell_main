@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 16:22:34 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 21:08:49 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 21:40:23 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	free_all(t_input *input)
 		free(input->token);
 	if (input->direct)
 		free_direct(input);
-	// if (input->envp)
+	if (input->envp)
 		free_env(input);
 	if (input->command)
 		free_t_comm(input);
-	// init_input(input);
+	init_input(input);
 }
 
 void	free_direct(t_input *input)

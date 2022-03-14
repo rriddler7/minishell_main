@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 20:46:56 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:47:36 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 21:44:28 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,19 @@ void	free_t_comm(t_input *input)
 	char	*str;
 	U_INT	i;
 
-	i = 0;
+	// i = 0;
 	if (!input || !input->command)
 		return ;
 	while (input->command)
 	{
+		i = 0;
 		copy = input->command;
 		input->command = input->command->next;
+		while (copy->words[i])
+			free(copy->words[i++]);
+		free(copy->words);
 		free(copy);
 	}
+	free(input->command);
 	input->command = NULL;
 }
