@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:20:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 23:19:50 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 23:53:27 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,30 +57,30 @@ static int	only_export(t_input *input)
 	return (0);
 }
 
-static void	change_env(t_env *env, t_env *new, t_input *input)
+static void	change_env(t_env **env, t_env *new, t_input *input)
 {
 	t_env	*copy2;
 	t_env	*lstnew;
 
 	while (new)
 	{
-		copy2 = env;
+		copy2 = *env;
 		while (copy2)
 		{
 			if (!ft_strcmp(new->key, copy2->key))
 			{
 				free(copy2->value);
 				copy2->value = modif_strdup(new->value, input);
+				free(new->value);
+				free(new->key);
+				free(new);
 				break ;
 			}
 			else
 				copy2 = copy2->next;
 		}
 		if (!copy2)
-		{
-			lstnew = ft_lstnew_env(new, input);
-			ft_lstadd_back(&input->envp, lstnew);
-		}
+			ft_lstadd_back(&input->envp, new);
 		new = new->next;
 	}
 }
@@ -109,7 +109,7 @@ U_INT	launch_export(t_input *input, t_comm *command, U_INT i)
 		}
 		i++;
 	}
-	// free_t_comm(command);
-	change_env(input->envp, new, input);
+	change_env(&input->envp, new, input);
+	// my_free_t_comm(&command);
 	return (input->num_error);
 }

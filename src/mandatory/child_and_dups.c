@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:19:35 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 21:10:59 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/14 23:40:19 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,25 @@ t_status	it_is_child2(t_input *input, t_comm	**copy, U_INT counter, U_INT *i)
 	return (success);
 }
 
+// void	my_free_t_comm(t_comm **command)
+// {
+// 	U_INT	i;
+// 	t_comm	*copy;
+
+// 	while (command)
+// 	{
+// 		i = 0;
+// 		copy = *command;
+// 		*command = (*command)->next;
+// 		while (copy->words[i])
+// 			free(copy->words[i++]);
+// 		free(copy->words);
+// 		free(copy);
+// 	}
+// 	free(*command);
+// 	*command = NULL;
+// }
+
 void	it_is_child(t_input *input, U_INT i, U_INT counter)
 {
 	t_comm	*copy;
@@ -76,7 +95,11 @@ void	it_is_child(t_input *input, U_INT i, U_INT counter)
 	str = ft_strjoin(copy->words[0], ": command not found", input);
 	child_dup(input, copy, i);
 	if (copy->build_number != 0)
-		launcher(input, copy);
+	{
+		launcher(input, copy); //++++
+		// exit(launcher(input, copy);
+		// my_free_t_comm(&copy);
+	}
 	else
 	{
 		if (copy->next && copy->next->words[0] && \
@@ -91,3 +114,4 @@ void	it_is_child(t_input *input, U_INT i, U_INT counter)
 	free(str);
 	exit (input->num_error);
 }
+
