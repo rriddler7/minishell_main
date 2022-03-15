@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cd2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 22:30:35 by rriddler          #+#    #+#             */
-/*   Updated: 2022/03/14 01:12:52 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:36:30 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	pwd_envp(t_input *input, char *path, char *key)
 	free(tmp);
 	if (!new)
 		cd_print_error(input, 12, "malloc", NULL);
-	add_list_back(&new, &input->envp);
+	add_list_back(&new, input);
 }
 
 static void	change_envp(t_input *input, char *path, t_status flag)

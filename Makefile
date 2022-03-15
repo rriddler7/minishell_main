@@ -95,6 +95,12 @@ $(NAME):  			$(OBJS_1) $(OBJS_2)
 					$(CC) $(FLAGS) $(OBJS_1) -o $(NAME_O) -lreadline $(R_FLAGS)
 # 					$(CC) $(FLAGS) $(OBJS_2) -o $(NAME_B) $(R_FLAGS)
 
+## delete test!!!!
+test:
+		make
+		bash ./test/test.sh my
+# 
+
 clean:
 					$(RM) $(OBJ_DIR)
 
@@ -104,4 +110,5 @@ fclean: 			clean
 
 re: 				fclean all
 
-.PHONY: 			all bonus clean fclean re
+# .PHONY: 			all bonus clean fclean re
+.PHONY: 			all bonus clean fclean re test

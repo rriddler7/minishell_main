@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:19:35 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 23:40:19 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 20:57:01 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,16 @@ void	it_is_child(t_input *input, U_INT i, U_INT counter)
 
 	if (it_is_child2(input, &copy, counter, &i) == fail)
 		exit(0);
-	str = ft_strjoin(copy->words[0], ": command not found", input);
+	if (copy->words[0][0] == '/' && access(copy->words[0], F_OK))
+	{
+		str = ft_strjoin_for_3 (copy->words[0], ": ", strerror(errno), input);
+		print_error(input, 126, NULL, str);
+	}
+	else
+		str = ft_strjoin(copy->words[0], ": command not found", input);
 	child_dup(input, copy, i);
 	if (copy->build_number != 0)
-	{
-		launcher(input, copy); //++++
-		// exit(launcher(input, copy);
-		// my_free_t_comm(&copy);
-	}
+		launcher(input, copy);
 	else
 	{
 		if (copy->next && copy->next->words[0] && \
@@ -114,4 +116,3 @@ void	it_is_child(t_input *input, U_INT i, U_INT counter)
 	free(str);
 	exit (input->num_error);
 }
-

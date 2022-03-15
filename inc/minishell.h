@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:08:31 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 00:20:21 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 21:11:07 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,10 @@ void		cd_print_error(t_input *input, U_INT error_num, \
 			char *msg, char *descrip);
 char		*get_path_cd(t_input *input, t_comm *command, t_env *copy);
 t_env		*create_sort_env(t_env *old, t_input *input);
-t_env		*env_sort(t_env *list, t_env *new, t_input *input);
+// t_env		*env_sort(t_env *list, t_env *new, t_input *input, t_env	*tmp);
 t_env		*sort_export(t_input *input);
 void		free_new(t_env **new);
+// void		free_new(t_env *new);
 
 /*----child_and_dups - работа с дочками, поиск пути---*/
 void		it_is_child(t_input *input, U_INT i, U_INT counter);
@@ -137,7 +138,9 @@ int			main(int argc, char **argv, char **envp);
 t_status	put_envp(char **envp, t_input *input);
 void		make_env_array(t_input *input, char ***full_envp);
 t_env		*create_new_list(char *str, t_input *input);
-void		add_list_back(t_env **new, t_env **envp);
+// void		add_list_back(t_env **new, t_env **envp);
+void		add_list_back(t_env **new, t_input *input);
+void		add_list_back_star(t_env **new, t_input	*input);
 
 /*----finder- препарсинг, поиск спецсимвлов----*/
 t_status	finder(char *str_command, t_input *input, U_INT i);
@@ -201,7 +204,7 @@ char		*modif_substr(char *s, U_INT start, U_INT len, t_input *input);
 /*----utils_print - полезные функции для печати---*/
 void		print_error(t_input *input, U_INT error_num, char *msg, \
 			char *descrip);
-t_status	print_token(t_input *input, char *str);
+t_status	print_token(t_input *input, char *str, t_status flag);
 
 /*----utils_other - полезные функции для строк---*/
 U_INT		ft_strlen(char *s);
@@ -229,6 +232,7 @@ void		ft_lstadd_back(t_env **lst, t_env *new);
 void		ft_lstadd_front(t_env **lst, t_env *new);
 U_INT		ft_lstsize(t_env *lst);
 void		lstadd_back(t_templ **lst, t_templ *new);
+int			dellist(t_env **list, t_env **c_list);
 
 /*----pipes ---*/
 void		make_fork(t_input *input, t_comm *command, U_INT i);

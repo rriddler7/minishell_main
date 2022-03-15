@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:55:36 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:51:41 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 21:12:53 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,15 @@ void	print_error(t_input *input, U_INT error_num, char *msg, char *descrip)
 	exit(error_num);
 }
 
-t_status	print_token(t_input *input, char *str)
+t_status	print_token(t_input *input, char *str, t_status flag)
 {
 	if (str)
 	{
 		free(input->token);
 		input->token = modif_strdup(str, input);
-	}	
+	}
+	if (flag == 1)
+		free(str);
 	input->num_error = 258;
 	write(1, "minishell: ", 11);
 	write(2, "syntax error near unexpected token", 34);

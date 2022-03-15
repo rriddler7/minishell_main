@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:20:45 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 22:34:37 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:20:52 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv, char **envp)
 	t_input		input;
 	char		*str_command;
 
+	rl_outstream = stderr; //test!!!!
 	if (argc != 1)
 	{
 		printf("minishell-1.0: %s: %s\n", argv[1], strerror(2));

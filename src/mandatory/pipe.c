@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:16:49 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 21:22:50 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 20:05:18 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	modif_wait(pid_t *id, U_INT counter, t_input *input, U_INT i)
 void	make_fork(t_input *input, t_comm *command, U_INT i)
 {
 	pid_t	*id;
+	char *str;
 
 	id = malloc(sizeof(pid_t) * input->num_of_command);
 	if (!id)

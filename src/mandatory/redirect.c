@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/19 17:45:43 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:52:52 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 21:12:45 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static void	check_direct(t_input *input, t_direct *new, char *str, U_INT *i)
 			new->twin = 1;
 			(*i)++;
 			if (str[*i] && str[*i] == '>')
-				print_token(input, ">");
+				print_token(input, ">", 0);
 		}
 		else if (str[*i + 1] == '>')
-			print_token(input, "newline");
+			print_token(input, "newline", 0);
 	}
 	else if (str[*i] == '>')
 	{
@@ -49,7 +49,7 @@ static void	check_direct(t_input *input, t_direct *new, char *str, U_INT *i)
 			new->twin = 1;
 			(*i)++;
 			if (str[*i] && str[*i] == '<')
-				print_token(input, "<");
+				print_token(input, "<", 0);
 		}
 	}
 	(*i)++;

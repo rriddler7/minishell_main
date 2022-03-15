@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 20:26:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 00:16:55 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 17:19:56 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	ft_lstadd_back(t_env **lst, t_env *new)
 {
 	t_env	*copy;
 
-	if (!lst || !new)
-		return ;
+	// if (!lst || !new)
+	// 	return ;
 	if (*lst != NULL)
 	{
 		copy = *lst;
@@ -77,4 +77,29 @@ void	lstadd_back(t_templ **lst, t_templ *new)
 	}
 	else
 		*lst = new;
+}
+
+int	dellist(t_env **list, t_env **c_list)
+{
+	t_env	*copy;
+
+	if (*list == *c_list)
+	{
+		*list = (*list)->next;
+		free(*c_list);
+		*c_list = NULL;
+		return (0);
+	}
+	copy = *list;
+	while (copy->next != *c_list && copy->next != NULL)
+	{
+		copy = copy->next;
+		if (copy->next == *c_list)
+		{
+			copy->next = (*c_list)->next;
+			free(*c_list);
+			*c_list = NULL;
+		}
+	}
+	return (0);
 }

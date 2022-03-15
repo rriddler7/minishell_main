@@ -6,21 +6,44 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 21:20:59 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 00:19:58 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:38:54 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static t_env	*create_new_list2(char *str, t_input *input)
+{
+	U_INT	i;
+	t_env	*tmp;
+
+	tmp = malloc(sizeof(t_env));
+	if (tmp == NULL)
+		return (NULL);
+	i = 0;
+	while (str[i] && str[i] != '=')
+		i++;
+	tmp->key = modif_substr(str, 0, i, input);
+	if (str[i] && str[i] == '=')
+		tmp->equal = 1;
+	if (!str[i] || !str[i + 1])
+		tmp->value = modif_strdup("\0", input);
+	else
+		tmp->value = modif_substr(str, i + 1, ft_strlen(str) - i + 1, input);
+	tmp->next = NULL;
+	free(str);
+	return (tmp);
+}
 
 t_env	*create_sort_env(t_env *old, t_input *input)
 {
 	t_env	*new;
 
 	if (old->equal == 1)
-		new = create_new_list(ft_strjoin_for_3 (old->key, \
+		new = create_new_list2(ft_strjoin_for_3 (old->key, \
 			"=", old->value, input), input);
 	else
-		new = create_new_list(modif_strdup(old->key, input), input);
+		new = create_new_list2(modif_strdup(old->key, input), input);
 	return (new);
 }
 
@@ -44,7 +67,7 @@ t_env	*env_sort(t_env *list, t_env *new, t_input *input)
 			ft_lstadd_back(&list, new);
 		tmp = tmp->next;
 	}
-	free_new(&tmp);
+	// free_new(&tmp);
 	return (list);
 }
 
