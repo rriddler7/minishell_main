@@ -65,6 +65,7 @@ void	find_direct_in_comm(t_input *input, char *str, U_INT j, U_INT *i)
 		print_error(input, 12, "malloc", NULL);
 	direct_init(new, i, j, str);
 	check_direct(input, new, str, i);
+	// printf("check_direct: twin=%d\n", new->twin);
 	while (str[*i] == ' ')
 		(*i)++;
 	while (str[*i] && str[*i] != '<' && str[*i] != '>' \
@@ -85,13 +86,24 @@ void	add_heredoc(t_input *input)
 	copy = input->direct;
 	while (copy)
 	{
+		printf("add_heredoc: incoming=%d, twin=%d, name=%s\n", copy->incoming, copy->twin, copy->name);
 		if (copy->incoming == 1 && copy->twin == 1)
 		{
+			printf("2add_heredoc: incoming=%d, copy->twin=%d, name=%s\n", copy->incoming, copy->twin, copy->name);
 			copy->stop_word = copy->name;
-			command = modif_itoa(copy->value, input);
+			printf("stop_word=%s\n", copy->stop_word);
+			printf("value=%d\n", copy->value);
+			if (copy->value != 0)
+				command = modif_itoa(copy->value, input);
+			else
+				command = modif_strdup("tmp", input);
 			copy->name = ft_strjoin("heredoc_", command, input);
+			printf("name=%s\n", copy->name);
 			free(command); //ft_change_limiter
+			printf("2name=%s\n", copy->name);
 		}
 		copy = copy->next;
+		printf("add_heredoc\n");
 	}
+	printf("111add_heredoc\n");
 }

@@ -41,8 +41,10 @@ t_input *input, char **envp)
 {
 	if (parser(str_command, input, 0, 0) != success)
 		return ;
+	printf("main: incoming=%d, twin=%d\n", input->direct->incoming, input->direct->twin);
 	clean_command(input);
 	clean_direct(input);
+	// printf("2main: incoming=%d, twin=%d\n", input->direct->incoming, input->direct->twin);
 	make_env_array(input, &input->arg_env);
 	try_open(input);
 }

@@ -77,9 +77,9 @@ static inline t_status	check_red(t_input *input, char *str_comman)
 
 t_status	finder(char *str_command, t_input *input, U_INT i)
 {
-	if (check_quotes(input, str_command) == fail)
-	// if (check_quotes(input, str_command) == fail || \
-	// check_red(input, str_command) == fail)
+	// if (check_quotes(input, str_command) == fail)
+	if (check_quotes(input, str_command) == fail || \
+	check_red(input, str_command) == fail)
 	{
 		input->num_error = 258;
 		// input->token = modif_strdup("newline", input);
