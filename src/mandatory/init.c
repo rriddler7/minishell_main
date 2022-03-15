@@ -38,23 +38,25 @@ void	direct_init(t_direct *new, U_INT *i, U_INT j, char *str)
 void mark_direct(t_input *input)
 {
 	U_INT	i;
-
+	t_direct	*copy;
+	
+	copy = input->direct;
 	if (!input->command)
 		return ;
-
+	printf("mark_direct: value=%d, incoming=%d\n", copy->value, copy->incoming);
 	i = 0;
-	while (input->direct)
+	while (copy)
 	{
-		while (i < input->direct->value)
+		while (i < copy->value)
 			{
 				input->command = input->command->next;
 				i++;
 			}
-		if (input->direct->incoming == 1)
+		if (copy->incoming == 1)
 			input->command->direct_in = input->direct;
 		else
 			input->command->direct_out = input->direct;
-		input->direct = input->direct->next;
+		copy = copy->next;
 	}
 }
 
@@ -65,8 +67,12 @@ void choose_build(t_comm *command)
 	copy = command;
 	while (copy != NULL)
 	{
+		printf("choose_build: copy->words[0]=%s\n", copy->words[0]);
 		if (copy->words[0] == NULL)
+		{
+			copy = copy->next;
 			continue;
+		}
 		else
 		{
 			if (ft_strcmp(copy->words[0], "echo") == 0)
@@ -83,9 +89,8 @@ void choose_build(t_comm *command)
 				copy->build_number = 6;
 			else if (ft_strcmp(copy->words[0], "exit") == 0)
 				copy->build_number = 7;
-			else if (ft_strcmp(copy->words[0], "*") == 0)
-				copy->build_number = -1;
-			
+			// else if (ft_strcmp(copy->words[0], "*") == 0)
+			// 	copy->build_number = -1;
 		}
 		copy = copy->next;
 	}

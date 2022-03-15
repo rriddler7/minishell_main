@@ -114,7 +114,8 @@ void	clean_command(t_input *input)
 {
 	U_INT	i;
 	t_comm	*copy;
-
+	
+	// printf("1clean_command: twin=%d\n", input->direct->twin);
 	copy = input->command;
 	while (copy)
 	{
@@ -131,7 +132,9 @@ void	clean_command(t_input *input)
 		}
 		copy = copy->next;
 	}
+	printf("2clean_command: twin=%d\n", input->direct->twin);
 	choose_build(input->command);
+	printf("3clean_command: twin=%d\n", input->direct->twin);
 }
 
 void clean_direct(t_input *input)
@@ -139,7 +142,9 @@ void clean_direct(t_input *input)
 	U_INT i;
 	t_direct	*copy;
 
+	printf("clean_direct: twin=%d\n", input->direct->twin);
 	copy = input->direct;
+	printf("2clean_direct: twin=%d\n", copy->twin);
 	while (copy)
 	{
 		i = 0;
@@ -147,12 +152,14 @@ void clean_direct(t_input *input)
 		// while (copy->name)
 		{
 			delete_quotes(&copy->name, input);
-			// printf("redirect after delete quotes: %s\n", copy->name);
+			printf("redirect after delete quotes: %s\n", copy->name);
 			i++;
 		}
 		copy = copy->next;
 	}
 	// free(copy);
-	add_heredoc(input);// надо ли это вообще???
+	printf("3clean_direct: twin=%d\n", input->direct->twin);
+	add_heredoc(input);
+	printf("4clean_direct: twin=%d\n", input->direct->twin);
 	mark_direct(input);
 }

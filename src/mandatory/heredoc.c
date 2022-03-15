@@ -35,6 +35,7 @@ t_status	launch_heredoc(t_direct *copy, t_input *input, int fd)
 	char		*new_line;
 	char		*err;
 
+	// printf("launch_heredoc\n");
 	if (launch_heredoc2(copy, input, &fd) == -3)
 		return (fail);
 	while (1)
