@@ -49,8 +49,8 @@ static void	change_env2(t_input	*input, t_env *copy_new)
 	{
 		if (ft_strcmp(copy_envp->key, copy_new->key) == success)
 		{
-			free(copy_envp->key);
-			copy_envp->key = modif_strdup(copy_new->value, input);
+			free(copy_envp->value);
+			copy_envp->value = modif_strdup(copy_new->value, input);
 			return ;
 		}
 		copy_envp = copy_envp->next;
