@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 20:41:45 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 23:34:52 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:50:55 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char	*get_path2(char *bin, t_input *input, U_INT i)
 	}
 	if (res == NULL)
 		res = bin;
-	clean_path(path, 0); //cmd_path
-	// free(bin); //cmd_path+
+	clean_path(path, 0);
 	return (res);
 }
 

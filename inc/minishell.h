@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:08:31 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 21:11:07 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:42:43 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,16 +91,17 @@ U_INT		launch_unset(t_input *input, t_comm *command);
 U_INT		launch_export(t_input *input, t_comm *command, U_INT i);
 U_INT		launch_exit(t_input *input, t_comm *command);
 U_INT		launch_echo(t_input *input);
-U_INT		launch_cd(t_input *input, t_comm *command);
+U_INT		launch_cd(t_input *input, t_comm *command, char	*path);
 U_INT		launch_exit(t_input *input, t_comm *command);
 void		cd_print_error(t_input *input, U_INT error_num, \
 			char *msg, char *descrip);
 char		*get_path_cd(t_input *input, t_comm *command, t_env *copy);
 t_env		*create_sort_env(t_env *old, t_input *input);
-// t_env		*env_sort(t_env *list, t_env *new, t_input *input, t_env	*tmp);
 t_env		*sort_export(t_input *input);
 void		free_new(t_env **new);
-// void		free_new(t_env *new);
+int			only_export(t_input *input);
+void		ft_lstadd_back2(t_env **lst, t_env *new, t_input *input);
+t_env		*ft_lstnew_env(t_env *env, t_input *input);
 
 /*----child_and_dups - работа с дочками, поиск пути---*/
 void		it_is_child(t_input *input, U_INT i, U_INT counter);
@@ -138,7 +139,6 @@ int			main(int argc, char **argv, char **envp);
 t_status	put_envp(char **envp, t_input *input);
 void		make_env_array(t_input *input, char ***full_envp);
 t_env		*create_new_list(char *str, t_input *input);
-// void		add_list_back(t_env **new, t_env **envp);
 void		add_list_back(t_env **new, t_input *input);
 void		add_list_back_star(t_env **new, t_input	*input);
 
@@ -190,9 +190,9 @@ void		find_star_in_comm(t_input *input);
 t_status	n_star(char *str);
 void		free_temple(t_templ *temple);
 char		**big_circle(t_templ *temple, t_input *input, U_INT size_good_temp);
+t_status	star_in_str(char *str, t_input *input);
 
 /*----quotes - работа с кавычками---*/
-t_status	go_to_end_quote(char *str, U_INT *i, char c, t_input *input);
 void		clean_command(t_input *input);
 void		clean_direct(t_input *input);
 
@@ -201,6 +201,7 @@ char		*ft_strjoin(char *s1, char *s2, t_input *input);
 char		*ft_strjoin_for_3(char *s1, char *s2, char *s3, t_input *input);
 char		*modif_strdup(char *src, t_input *input);
 char		*modif_substr(char *s, U_INT start, U_INT len, t_input *input);
+
 /*----utils_print - полезные функции для печати---*/
 void		print_error(t_input *input, U_INT error_num, char *msg, \
 			char *descrip);
@@ -225,6 +226,7 @@ char		**ft_split(char const *s, char c);
 char		*ft_strchr(char *str, char c);
 void		iter_str(char *str, U_INT *i);
 void		my_gnl(char **new_line, t_input *input);
+t_status	go_to_end_quote(char *str, U_INT *i, char c, t_input *input);
 
 /*----utils_list - ПРОДОЛЖЕНИЕ: полезные функции для строк---*/
 void		ft_lstadd_middle(t_env **new, t_env **tmp);
@@ -232,7 +234,6 @@ void		ft_lstadd_back(t_env **lst, t_env *new);
 void		ft_lstadd_front(t_env **lst, t_env *new);
 U_INT		ft_lstsize(t_env *lst);
 void		lstadd_back(t_templ **lst, t_templ *new);
-int			dellist(t_env **list, t_env **c_list);
 
 /*----pipes ---*/
 void		make_fork(t_input *input, t_comm *command, U_INT i);
@@ -241,22 +242,7 @@ void		clean_path(char **path, U_INT i);
 void		close_fd(t_input *input, int *fd_file, U_INT counter, U_INT i);
 
 char		*path_home(t_input *input, t_comm *command);
-
-//mac:     gcc file.c -L/Users/$USER/.brew/Cellar/readline/8.1.1/lib/ -I/Users/$USER/.brew/Cellar/readline/8.1.1/include -lreadline -o filename
-//linux:   gcc -L/usr/local/lib -I/usr/local/include *.c -lreadline
+t_status	put_envp(char **envp, t_input *input);
+void		make_env_array(t_input *input, char ***full_envp);
 
 #endif
-
-/* В обработку ошибок: 
-bash-3.2$ ytjy >>> gh
-bash: syntax error near unexpected token `>'
-bash-3.2$ ytjy <<< gh
-bash: ytjy: command not found
-bash-3.2$ ytjy ||| gh
-bash: syntax error near unexpected token `|'
-
-Проверить:
-- токены в кавычках
-- как выдает ls * | wc
-- как выдает ls i* * *i
-*/

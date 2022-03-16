@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/14 22:48:00 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 23:15:23 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:20:24 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,42 @@ t_status	check_word(char *str)
 		++i;
 	}
 	return (success);
+}
+
+int	only_export(t_input *input)
+{
+	t_env	*copy;
+	t_env	*start;
+
+	copy = sort_export(input);
+	start = copy;
+	while (copy)
+	{
+		if (copy->equal == 1)
+			printf("declare -x %s%s\"%s\"\n", copy->key, "=", copy->value);
+		else
+			printf("declare -x %s\n", copy->key);
+		copy = copy->next;
+	}
+	free_new(&start);
+	return (0);
+}
+
+void	ft_lstadd_back2(t_env **lst, t_env *new, t_input *input)
+{
+	t_env	*copy;
+	t_env	*tmp;
+
+	if (!lst || !new)
+		return ;
+	tmp = ft_lstnew_env(new, input);
+	if (*lst != NULL)
+	{
+		copy = *lst;
+		while (copy->next != NULL)
+			copy = copy->next;
+		copy->next = tmp;
+	}
+	else
+		*lst = tmp;
 }

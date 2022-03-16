@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/05 20:20:45 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 17:20:52 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:43:46 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 static inline t_status	catch_str(char **command, t_input *input, U_INT i)
 {
-	*command = readline("minishell-1.0$ ");
+	*command = readline("\x1b[32mminishell$\x1b[0m ");
 	if (*command == NULL)
 	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
+		write(2, "\033[Aminishell$ exit\n", \
+		ft_strlen("\033[Aminishell$ exit\n"));
 		rl_redisplay();
-		write(2, "exit\n", 5);
 		free_all(input);
 		exit(0);
 	}
@@ -41,12 +40,27 @@ t_input *input, char **envp)
 {
 	if (parser(str_command, input, 0, 0) != success)
 		return ;
-	printf("main: incoming=%d, twin=%d\n", input->direct->incoming, input->direct->twin);
 	clean_command(input);
 	clean_direct(input);
-	// printf("2main: incoming=%d, twin=%d\n", input->direct->incoming, input->direct->twin);
 	make_env_array(input, &input->arg_env);
 	try_open(input);
+}
+
+t_status	put_envp(char **envp, t_input *input)
+{
+	U_INT	i;
+	t_env	*new;
+
+	i = 0;
+	while (envp[i])
+	{
+		new = create_new_list(envp[i], input);
+		if (!new)
+			print_error(input, 12, "malloc", NULL);
+		add_list_back(&new, input);
+		i++;
+	}
+	return (success);
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -54,7 +68,6 @@ int	main(int argc, char **argv, char **envp)
 	t_input		input;
 	char		*str_command;
 
-	rl_outstream = stderr; //test!!!!
 	if (argc != 1)
 	{
 		printf("minishell-1.0: %s: %s\n", argv[1], strerror(2));

@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:16:49 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 20:05:18 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:56:15 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	close_fd(t_input *input, int *fd_file, U_INT counter, U_INT i)
 	}
 }
 
-void	clean_path(char **path, U_INT i) //free_path
+void	clean_path(char **path, U_INT i)
 {
 	while (path != NULL && path[i] != NULL)
 	{
@@ -56,28 +56,19 @@ void	modif_wait(pid_t *id, U_INT counter, t_input *input, U_INT i)
 	if (input != NULL)
 	{
 		if (WIFEXITED(exit_status))
-		{
 			input->num_error = WEXITSTATUS(exit_status);
-			// printf("дочка завершилась хорошо, через exit - input->num_error = %d, errno = %d\n", input->num_error, errno);
-		}
 	}
 	else if (WIFSIGNALED(exit_status))
-	{
 		input->num_error = WTERMSIG(exit_status);
-		// printf("дочка завершилась хорошо, через сигнал - input->num_error = %d, errno = %d\n", input->num_error, errno);
-	}
 	else
-	{
 		input->num_error = exit_status + 128;
-				// printf("дочка завершилась ПЛОХО!!!! - input->num_error = %d, errno = %d\n", input->num_error, errno);
-	}
 	free(id);
 }
 
 void	make_fork(t_input *input, t_comm *command, U_INT i)
 {
 	pid_t	*id;
-	char *str;
+	char	*str;
 
 	id = malloc(sizeof(pid_t) * input->num_of_command);
 	if (!id)

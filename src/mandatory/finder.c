@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 20:44:38 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 22:19:32 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:32:40 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,20 @@
 static inline t_status	check_quotes(t_input *input, char *str)
 {
 	U_INT	i;
+	U_INT	j;
 
 	i = 0;
-	// if (str[i] == '|')
-	// 	return (fail);
-	// while (str[i])
-	// {
-	// 	if (str[i] == '|')
-	// 		i++;
-	// 	while (str[i] == ' ')
-	// 		i++;
-	// 	if (!str[i] || str[i] == '|')
-	// 		return (fail);
-		while (str[i] && str[i] != '|')
+	while (str[i] && str[i] != '|')
+	{
+		if (str[i] == '\'' || str[i] == '\"')
 		{
-			if (str[i] == '\'' || str[i] == '\"')
-			{
-				if (go_to_end_quote(str, &i, str[i], input) == fail)
-					return (print_token(input, "newline", 0));
-			}
-			else
-				i++;
+			j = i;
+			if (go_to_end_quote(str, &i, str[i], input) == fail)
+				return (print_token(input, &str[j], 0));
 		}
-	// }
+		else
+			i++;
+	}
 	return (success);
 }
 
@@ -81,8 +72,8 @@ t_status	finder2(char *str_command, t_input *input, U_INT *i)
 
 	while (str_command[*i] == ' ')
 		++i;
-	if (str_command[*i] == '|' || str_command[*i] == '&' || \
-	str_command[*i] == ';')
+	if (str_command[*i] && (str_command[*i] == '|' || \
+	str_command[*i] == '&' || str_command[*i] == ';'))
 	{
 		j = *i;
 		++(*i);
@@ -128,6 +119,7 @@ t_status	finder(char *str_command, t_input *input, U_INT i)
 			return (print_token(input, "newline", 0));
 		}
 	}
-	check_quotes(input, str_command);
+	if (check_quotes(input, str_command) == fail)
+		return (fail);
 	return (success);
 }

@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_struct.c                                      :+:      :+:    :+:   */
+/*   free_struct2_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/12 16:22:34 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 02:15:03 by marvin           ###   ########.fr       */
+/*   Created: 2022/03/13 20:46:56 by pveeta            #+#    #+#             */
+/*   Updated: 2022/03/16 19:52:39 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
-void free_env(t_input *input)
+void	free_env(t_input *input)
 {
-	t_env *copy;
+	t_env	*copy;
 
 	if (!input->envp)
 		return ;
@@ -29,8 +29,24 @@ void free_env(t_input *input)
 	input->envp = NULL;
 }
 
-
-void free_all(t_input *input) // аналог void	free_arg(t_arg *arg), но надо доделывать!
+void	free_t_comm(t_input *input)
 {
-;
+	t_comm	*copy;
+	char	*str;
+	U_INT	i;
+
+	if (!input || !input->command)
+		return ;
+	while (input->command)
+	{
+		i = 0;
+		copy = input->command;
+		input->command = input->command->next;
+		while (copy->words[i])
+			free(copy->words[i++]);
+		free(copy->words);
+		free(copy);
+	}
+	free(input->command);
+	input->command = NULL;
 }

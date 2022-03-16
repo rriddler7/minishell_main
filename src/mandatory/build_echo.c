@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/23 17:57:00 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:21:45 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:04:50 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ static inline void	find_options(t_comm *command, U_INT *i, t_input *input)
 	{
 		if (command->words[w][0] != '-')
 			break ;
-		if (command->words[w][0] == '~')
-			printf("%s\n", path_home(input, command));
 		l = 1;
 		while (command->words[w][l] == 'n')
 			l++;
@@ -74,6 +72,8 @@ U_INT	launch_echo(t_input *input)
 		{
 			if (input->command->words[i][0] != '~')
 				printf("%s", input->command->words[i]);
+			else
+				printf("%s", path_home(input, input->command));
 		}
 		i++;
 	}

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_other.c                                      :+:      :+:    :+:   */
+/*   utils_other_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:58:39 by pveeta            #+#    #+#             */
-/*   Updated: 2022/02/12 16:02:27 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:59:31 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
 U_INT	ft_strlen(char *s)
 {
@@ -72,7 +72,7 @@ char	*modif_itoa(int n, t_input *input)
 	str = malloc(sizeof(char) * (len + 1));
 	if (!str)
 		print_error(input, 12, "malloc", NULL);
-	str[len--] = 0;
+	str[len--] = '\0';
 	while ((num / 10) > 0)
 	{
 		str[len--] = (num % 10) + 48;
@@ -84,28 +84,31 @@ char	*modif_itoa(int n, t_input *input)
 	return (str);
 }
 
-long	modif_atoi(char *s, int i, long number)
+long long	modif_atoi(char *s, int *flag, int i)
 {
-	int	sign;
+	int					sign;
+	unsigned long long	number;
 
-	while (s[i] == 32 || (s[i] >= 9 && s[i] <= 13))
-		i++;
+	number = 0;
+	if (*flag != 0)
+		return (0);
 	if (s[i] == '-')
 		sign = -1;
 	else
 		sign = 1;
 	if (s[i] == '+' || s[i] == '-')
 		i++;
-	while (s[i] != 0)
+	while (s[i] != 0 && *flag == 0)
 	{
 		if (s[i] < '0' || s[i] > '9')
-			return (0);
-		while (s[i] >= '0' && s[i] <= '9')
+			*flag = -1;
+		while (s[i] >= '0' && s[i] <= '9' && *flag == 0)
 		{
 			number = 10 * number + (s[i++] - '0');
-			if ((number > 2147483647 && sign == 1) || sign == -1)
-				return (0);
+			if ((number > 9223372036854775807 && sign == 1) || \
+				(sign == -1 && number - 1 > 9223372036854775807))
+				*flag = -1;
 		}
 	}
-	return (sign * number);
+	return ((long long)sign * number);
 }

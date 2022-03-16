@@ -60,23 +60,6 @@ U_INT	get_number_of_words(char *str, U_INT *i, t_input *input, U_INT counter)
 	return (counter);
 }
 
-t_status star_in_str(char *str,  t_input *input)
-{
-	U_INT	i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '*')
-			{
-				input->have_star = 1;
-				return (success);
-			}
-		++i;
-	}
-	return (fail);
-}
-
 static t_comm	*create_list_comm(char *str, t_input *input, U_INT *i)
 {
 	U_INT	counter;

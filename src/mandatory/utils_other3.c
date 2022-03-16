@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/08 21:09:06 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/13 20:15:00 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 00:00:38 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,4 +55,23 @@ void	my_gnl(char **new_line, t_input *input)
 		*new_line = tmp;
 	}
 	free(finish);
+}
+
+t_status	go_to_end_quote(char *str, U_INT *i, char c, t_input *input)
+{
+	U_INT	m;
+
+	m = *i + 1;
+	while (str[m])
+	{
+		if (str[m] == c)
+		{
+			*i = m + 1;
+			return (success);
+		}
+		else
+			m++;
+	}
+	(*i)++;
+	return (fail);
 }

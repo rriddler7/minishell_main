@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   star6.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/13 19:30:34 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 01:42:02 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:58:28 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,21 @@ void	free_temple(t_templ *temple)
 		free(copy->value);
 		free(copy);
 	}
+}
+
+t_status	star_in_str(char *str, t_input *input)
+{
+	U_INT	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '*')
+		{
+			input->have_star = 1;
+			return (success);
+		}
+		++i;
+	}
+	return (fail);
 }

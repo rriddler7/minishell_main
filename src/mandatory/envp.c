@@ -6,27 +6,11 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 16:10:51 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 14:36:07 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:27:11 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-// void	add_list_back(t_env **new, t_env **envp)
-// {
-// 	t_env	*copy;
-
-// 	if (!(*envp))
-// 		*envp = *new;
-// 	else
-// 	{
-// 		copy = *envp;
-// 		while (copy->next)
-// 			copy = copy->next;
-// 		copy->next = *new;
-// 		(*new)->next = NULL;
-// 	}
-// }
 
 void	add_list_back(t_env **new, t_input	*input)
 {
@@ -66,22 +50,11 @@ void	add_list_back_star(t_env **new, t_input	*input)
 	}
 }
 
-
 t_env	*create_new_list(char *str, t_input *input)
 {
 	U_INT	i;
 	t_env	*tmp;
 
-   /*
-	протестировать без этого, какая будет ошибка при некорректном вводе команды
-
-	if (!((str[0] >= 'A' && str[0] <= 'Z') || \
-         (str[0] >= 'a' && str[0] <= 'z') ||
-        str[0] == '_'))
-        // printf("%s: %s: not a valid identifier\n", input->command->(*words), str);//??????
-        print_error(input, 1, "export", "not a valid identifier");//пока не могу это протестировать
-
-	*/
 	tmp = malloc(sizeof(t_env));
 	if (tmp == NULL)
 		return (NULL);
@@ -97,23 +70,6 @@ t_env	*create_new_list(char *str, t_input *input)
 		tmp->value = modif_substr(str, i + 1, ft_strlen(str) - i + 1, input);
 	tmp->next = NULL;
 	return (tmp);
-}
-
-t_status	put_envp(char **envp, t_input *input)
-{
-	U_INT	i;
-	t_env	*new;
-
-	i = 0;
-	while (envp[i])
-	{
-		new = create_new_list(envp[i], input);
-		if (!new)
-			print_error(input, 12, "malloc", NULL);
-		add_list_back(&new, input);
-		i++;
-	}
-	return (success);
 }
 
 static inline char	**make_env_array2(t_input *input, U_INT counter, U_INT i)
@@ -132,7 +88,7 @@ static inline char	**make_env_array2(t_input *input, U_INT counter, U_INT i)
 			array = ft_strjoin_for_3(copy->key, "=", copy->value, input);
 		else
 			array = modif_strdup(copy->key, input);
-		arg[i] = array; //free(array)
+		arg[i] = array;
 		i++;
 		copy = copy->next;
 	}

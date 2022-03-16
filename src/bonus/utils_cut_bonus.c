@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils_cut.c                                        :+:      :+:    :+:   */
+/*   utils_cut_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/12 15:58:30 by pveeta            #+#    #+#             */
-/*   Updated: 2022/02/12 16:02:49 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 19:59:03 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "minishell_bonus.h"
 
 char	*ft_strjoin(char *s1, char *s2, t_input *input)
 {
@@ -77,10 +77,10 @@ char	*modif_substr(char *s, U_INT start, U_INT len, t_input *input)
 
 	if (!s)
 		return (NULL);
-    sub = malloc(sizeof(char) * (len + 1));
-    if (!sub)
+	sub = malloc(sizeof(char) * (len + 1));
+	if (!sub)
 		print_error(input, 12, "malloc", NULL);
-    i = 0;
+	i = 0;
 	while (s[start + i] && (i < len))
 	{
 		sub[i] = s[start + i];

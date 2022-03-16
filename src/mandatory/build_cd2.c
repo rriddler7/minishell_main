@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 22:30:35 by rriddler          #+#    #+#             */
-/*   Updated: 2022/03/15 14:36:30 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/16 18:37:59 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	change_envp(t_input *input, char *path, t_status flag)
 	while (copy && ft_strcmp(copy->key, key) != success)
 		copy = copy->next;
 	if (!copy)
-		change_envp(input, path, flag);
+		pwd_envp(input, path, key);
 	else
 	{
 		free(copy->value);
@@ -98,12 +98,10 @@ U_INT	launch_cd2(t_input *input, t_comm **command, char sign, char **path)
 	return (0);
 }	
 
-U_INT	launch_cd(t_input *input, t_comm *command)
+U_INT	launch_cd(t_input *input, t_comm *command, char	*path)
 {
-	char	*path;
 	t_env	*copy;
 
-	path = NULL;
 	copy = input->envp;
 	if (!input || !command->words[1])
 	{
@@ -121,7 +119,8 @@ U_INT	launch_cd(t_input *input, t_comm *command)
 	if (chdir(path) != success)
 		cd_print_error(input, 1, command->words[0], \
 		"No such file or directory");
-	change_envp(input, NULL, 1);
+	else
+		change_envp(input, NULL, 1);
 	input->num_error = 1;
 	free(path);
 	return (input->num_error);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 20:21:05 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/14 02:08:10 by marvin           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:55:12 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,7 @@ static void	add_command(t_input *input, char *str, U_INT j, U_INT *i)
 			m = *i;
 			go_through_word(str, i, input);
 			tmp->words[k] = modif_substr(str, m, *i - m, input);
-			k++;
-			tmp->words[k] = NULL;
+			tmp->words[++k] = NULL;
 		}
 	}
 	if (input->have_star == 1)
@@ -69,10 +68,7 @@ t_status	parser(char *str_command, t_input *input, U_INT i, U_INT j)
 		return (fail);
 	}
 	else if (flag == end)
-	{
-		// print_token(input, "newline"); ??????
 		return (end);
-	}
 	while (str_command[i])
 	{
 		if (str_command[i] != '|')

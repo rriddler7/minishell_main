@@ -6,7 +6,7 @@
 /*   By: pveeta <pveeta@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 15:19:35 by pveeta            #+#    #+#             */
-/*   Updated: 2022/03/15 20:57:01 by pveeta           ###   ########.fr       */
+/*   Updated: 2022/03/15 23:45:13 by pveeta           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,29 +65,23 @@ t_status	it_is_child2(t_input *input, t_comm	**copy, U_INT counter, U_INT *i)
 	return (success);
 }
 
-// void	my_free_t_comm(t_comm **command)
-// {
-// 	U_INT	i;
-// 	t_comm	*copy;
+void	it_is_child3(t_comm	*copy, t_input *input, char *str)
+{
+	char	*path;
 
-// 	while (command)
-// 	{
-// 		i = 0;
-// 		copy = *command;
-// 		*command = (*command)->next;
-// 		while (copy->words[i])
-// 			free(copy->words[i++]);
-// 		free(copy->words);
-// 		free(copy);
-// 	}
-// 	free(*command);
-// 	*command = NULL;
-// }
+	if (copy->next && copy->next->words[0] && \
+	ft_strcmp(copy->next->words[0], "exit") == 0)
+		exit(7);
+	path = get_path(copy->words[0], input, 0);
+	if (!path)
+		print_error(input, 127, NULL, str);
+	if (execve(path, copy->words, input->arg_env) != 0)
+		print_error(input, 127, NULL, str);
+}
 
 void	it_is_child(t_input *input, U_INT i, U_INT counter)
 {
 	t_comm	*copy;
-	char	*path;
 	char	*str;
 
 	if (it_is_child2(input, &copy, counter, &i) == fail)
@@ -95,7 +89,8 @@ void	it_is_child(t_input *input, U_INT i, U_INT counter)
 	if (copy->words[0][0] == '/' && access(copy->words[0], F_OK))
 	{
 		str = ft_strjoin_for_3 (copy->words[0], ": ", strerror(errno), input);
-		print_error(input, 126, NULL, str);
+		print_error(input, 126, NULL, ft_strjoin_for_3 (copy->words[0], ": ", \
+		strerror(errno), input));
 	}
 	else
 		str = ft_strjoin(copy->words[0], ": command not found", input);
@@ -103,16 +98,7 @@ void	it_is_child(t_input *input, U_INT i, U_INT counter)
 	if (copy->build_number != 0)
 		launcher(input, copy);
 	else
-	{
-		if (copy->next && copy->next->words[0] && \
-		ft_strcmp(copy->next->words[0], "exit") == 0)
-			exit(7);
-		path = get_path(copy->words[0], input, 0);
-		if (!path)
-			print_error(input, 127, NULL, str);
-		if (execve(path, copy->words, input->arg_env) != 0)
-			print_error(input, 127, NULL, str);
-	}
+		it_is_child3(copy, input, str);
 	free(str);
 	exit (input->num_error);
 }
